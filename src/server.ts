@@ -13,12 +13,15 @@ app.setErrorHandler((error, request, reply) => {
 })
 
 const start = async () => {
-    
-    await app.register(cors)
+    await app.register(cors, {
+        origin: "http://localhost:5173",
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    })
+
     await app.register(routes)
+
     try {
         await app.listen({ port:3333 })
-
     } catch(err) {
         process.exit(1)
     }
